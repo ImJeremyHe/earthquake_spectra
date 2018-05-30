@@ -17,7 +17,7 @@ def Strength_Spectra(file_name, t_list,fy_, eta):
     disp = []
     for t in t_list:
         result_dict = Nonlinear_SDOF_Analysis(info, t, 0.05, 10000000000000, eta)
-        vme = 1e-3 * result_dict['Ab_Amax']
+        vme = MASS * result_dict['Ab_Amax']
         fy = fy_ * vme
         result = Nonlinear_SDOF_Analysis(info, t, 0.05, fy, eta)
         acc.append(result['Ab_Amax'])
@@ -29,7 +29,7 @@ def Strength_Spectra(file_name, t_list,fy_, eta):
 
 
 if __name__ == '__main__':
-    a = Strength_Spectra(r'RSN1_HELENA.A_A-HMC180.AT2',[i/10 for i in range(1, 61)], 1, 0)
+    a = Strength_Spectra(r'RSN1_HELENA.A_A-HMC180.AT2',[i/10 for i in range(1, 61)], 0.5, 0)
     with open('acc_spect.txt', 'w') as f:
         for t, acc in zip(a['t'], a['acc']):
             f.write('%-5s%-20s' % (t, acc))
