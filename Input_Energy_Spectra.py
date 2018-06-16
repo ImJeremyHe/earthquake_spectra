@@ -4,6 +4,7 @@ import os.path
 from sdof_nonlinear import *
 from read_record import read_record
 import os.path
+import math
 
 '''
 绘制文件夹中的PEER记录的等强度谱
@@ -29,7 +30,7 @@ def Strength_Energy_Spectra(file_name, t_list,fy_, eta, ksai):
                             e_peak = e
         energy.append(e_peak)
         
-    return {'t': t_list, 'energy': energy}
+    return {'t': t_list, 'energy': energy, 'equ_vel': list(map(lambda x: math.sqrt(2*x/MASS), energy))}
         
 
 
@@ -37,7 +38,7 @@ def Strength_Energy_Spectra(file_name, t_list,fy_, eta, ksai):
 if __name__ == '__main__':
     a = Strength_Energy_Spectra(r'RSN1_HELENA.A_A-HMC180.AT2',[i/10 for i in range(1, 61)], 0.5, 0, 0.05)
     with open('energy.txt', 'w') as f:
-        for t, energy in zip(a['t'], a['energy']):
+        for t, energy in zip(a['t'], a['equ_vel']):
             f.write('%-5s%-20s' % (t, energy))
             f.write('\n')
 

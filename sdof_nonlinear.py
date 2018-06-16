@@ -100,9 +100,8 @@ def Nonlinear_SDOF_Analysis(record_info, T, ksai, strength, eta):
 
 
 if __name__ =='__main__':
-    info = read_record('1.AT2')
+    info = read_record('RSN1_HELENA.A_A-HMC180.AT2')
     res = Nonlinear_SDOF_Analysis(info, 0.5, 0.05, 0.15, 0.01)
     with open('1.txt', 'w') as f:
         for each in res['dis']:
             f.write('%-8.4f\n' % each)
-
