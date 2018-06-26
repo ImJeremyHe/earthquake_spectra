@@ -55,7 +55,7 @@ def iteration(info, t, damping_ratio, eta, d, vme, initial, max_times = 1000):
         result = Nonlinear_SDOF_Analysis(info, t, damping_ratio, fy, eta)
         if abs((result['mu'] - d) / d) <= 0.05:
             return result
-        del recorder[i%3]
+        del recorder[i%(i%3+1)]
         #print(result['mu'])
         #print(recorder)
         recorder.append((predict_fy_, result['mu']))
